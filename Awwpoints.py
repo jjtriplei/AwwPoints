@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from database import tables
+from database import tables, Manager
 
 app = Flask(__name__)
 
