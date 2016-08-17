@@ -1,6 +1,6 @@
 import datetime
 
-class users:
+class User:
     def __init__(self, user_name, email_address, password):
 
         self.user_id = ""
