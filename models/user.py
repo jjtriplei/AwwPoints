@@ -19,6 +19,10 @@ def create_user(username, email_address, password, last_logged_in, is_pass_seque
         (username, email_address, password, last_logged_in, is_pass_sequential)
     )
 
+
+
+#Testing script
+
 # Manager.create_all_tables()
 
 # db_connection = Manager.get_db_connection()
