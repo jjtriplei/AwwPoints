@@ -40,3 +40,20 @@ def create_all_tables():
     # cursor.execute(SQL_TO_CREATE_ACTIVITY_TABLE)
     db_connection.commit()
     db_connection.close()
+
+
+def select_contact(columns_to_strip_SQL):
+    final_SQL_query = "SELECT "
+
+    if columns_to_strip_SQL:
+        for column_name in columns_to_strip_SQL:
+            final_SQL_query += column_name + ", "
+        final_SQL_query.rstrip(',')
+        final_SQL_query += 'FROM USER'
+
+    else:
+        print("RUN ELSE")
+
+
+select_contact(['help', 'me', 'see'])
+select_contact()
