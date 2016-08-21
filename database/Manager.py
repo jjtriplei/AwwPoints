@@ -41,19 +41,23 @@ def create_all_tables():
     db_connection.commit()
     db_connection.close()
 
+#I DON'T THINK I NEED THIS!!
+# def select_contact_columns(columns_to_select):
+# # Enter columns_to_select as list or tuple
+#     final_SQL_query = "SELECT "
+#
+#     if columns_to_select:
+#         for column_name in columns_to_select:
+#             final_SQL_query += column_name + ", "
+#         final_SQL_query.rstrip(',')
+#         final_SQL_query += 'FROM USER'
+#         return final_SQL_query
+#
+#     else:
+#         "SELECT * FROM USER"
 
-def select_contact(columns_to_strip_SQL):
-    final_SQL_query = "SELECT "
 
-    if columns_to_strip_SQL:
-        for column_name in columns_to_strip_SQL:
-            final_SQL_query += column_name + ", "
-        final_SQL_query.rstrip(',')
-        final_SQL_query += 'FROM USER'
+def select_user_by_userid(userid):
+    select_user_by_userid_SQL = "SELECT username FROM USER WHERE rowid = " + str(userid) + ";"
+    return select_user_by_userid_SQL
 
-    else:
-        print("RUN ELSE")
-
-
-select_contact(['help', 'me', 'see'])
-select_contact()
