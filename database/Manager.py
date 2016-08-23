@@ -2,19 +2,12 @@ import sqlite3
 import os
 import datetime
 
+# =============================================================
+
 # Database.manager is in charge of handling lower-level functions that deal
 # Directly with the database.  (ex: Opening a connection, inserting some SQL, deleting all tables... etc
 
-SQL_TO_CREATE_USER_TABLE = '''
-    CREATE TABLE USER (
-    username VARCHAR (255) NOT NULL,
-    email_address VARCHAR (255) NOT NULL,
-    password TINYINT NOT NULL,
-    last_logged_in DATETIME NOT NULL,
-    is_pass_sequential BOOLEAN NOT NULL DEFAULT True,
-    violation_count TINYINT NOT NULL DEFAULT 0
-    )
-    '''
+# =============================================================
 
 
 #  Connects to DB file
@@ -58,6 +51,23 @@ def create_all_tables():
 
 
 def select_user_by_userid(userid):
-    select_user_by_userid_SQL = "SELECT username FROM USER WHERE rowid = " + str(userid) + ";"
-    return select_user_by_userid_SQL
+    connection = get_db_connection()
+    connection.cursor().execute("SELECT * FROM USER WHERE rowid = (?)", (userid,))
+    connection.commit()
+    connection.close()
+
+
+def select_user_by_email_address(email_address):
+    connection = get_db_connection()
+    connection.cursor().execute("SELECT * FROM USER WHERE email_address = (?)", (email_address,))
+    connection.commit()
+    connection.close()
+
+
+def delete_user_by_username(username):
+    connection = get_db_connection()
+    connection.cursor().execute("DELETE FROM USER WHERE username = (?)", (username,))
+    connection.commit()
+    connection.close()
+
 
