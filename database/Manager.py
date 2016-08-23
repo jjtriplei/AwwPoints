@@ -40,7 +40,7 @@ def insert_and_commit(sql_command, *args, **kwargs):
 def create_all_tables():
     db_connection = get_db_connection()
     cursor = db_connection.cursor()
-    cursor.execute(SQL_TO_CREATE_USER_TABLE)
+    cursor.executescript(SQL_TO_CREATE_USER_TABLE)
     # cursor.execute(SQL_TO_CREATE_POST_TABLE)
     # cursor.execute(SQL_TO_CREATE_POINTS_TABLE)
     # cursor.execute(SQL_TO_CREATE_COMMENTS_TABLE)
