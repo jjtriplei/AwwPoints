@@ -24,39 +24,50 @@ class User:
             cursor.execute(
                 "INSERT INTO USER (USERNAME,EMAIL_ADDRESS,PASSWORD,LAST_LOGGED_IN,IS_PASS_SEQUENTIAL) VALUES (?,?,?,?,?)",
                 (self.username, self.email_address, self.password, datetime.datetime.now(), self.is_pass_sequential))
-        except sqlite3.IntegrityError:
-            print("Sorry Sucka! Username already exists")
+        except sqlite3.IntegrityError as error:
+            if "email_address" in str(error).lower():
+                print("Sorry Chummmmmmmmmmm-p. That email address is being used")
+            elif "username" in str(error).lower():
+                print("Sorry Sucka! Username already exists")
+        else:
+            print("Looks like account was created")
         db_connection.commit()
         db_connection.close()
-        print("I got here")
+        print("Closed DB connection")
 
+    @staticmethod
     def get_user_by_userid(userid):
         connection = Manager.get_db_connection()
         connection.cursor().execute("SELECT * FROM USER WHERE rowid = (?)", (userid,))
         connection.close()
 
+    @staticmethod
     def get_user_by_email_address(email_address):
         connection = Manager.get_db_connection()
         connection.cursor().execute("SELECT * FROM USER WHERE email_address = (?)", (email_address,))
         connection.close()
 
+    @staticmethod
     def get_all_users():
         connection = Manager.get_db_connection()
         connection.cursor().execute("SELECT * FROM USER")
         connection.close()
 
+    @staticmethod
     def delete_user_by_username(username):
         connection = Manager.get_db_connection()
         connection.cursor().execute("DELETE FROM USER WHERE username = (?)", (username,))
         connection.commit()
         connection.close()
 
+    @staticmethod
     def delete_user_by_userid(userid):
         connection = Manager.get_db_connection()
         connection.cursor().execute("DELETE FROM USER WHERE rowid = (?)", (userid,))
         connection.commit()
         connection.close()
 
+    @staticmethod
     def update_email_address(userid, email_address):
         connection = Manager.get_db_connection()
         connection.cursor().execute("UPDATE USER SET email_address = (?) WHERE  rowid= (?);",
