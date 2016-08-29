@@ -75,8 +75,3 @@ class User:
                                     (email_address, user_id,))
         connection.commit()
         connection.close()
-
-
-# def create_user(username, email_address, password, last_logged_in, is_pass_sequential, cursor):
-#     Manager.insert_and_commit("INSERT INTO USER (USERNAME,EMAIL_ADDRESS,PASSWORD,LAST_LOGGED_IN,IS_PASS_SEQUENTIAL) VALUES (?,?,?,?,?)",/
-#     (username, email_address, password, last_logged_in, is_pass_sequential,))
