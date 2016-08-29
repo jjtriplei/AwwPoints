@@ -27,7 +27,8 @@ SQL_TO_CREATE_USER_TABLE = '''
 
 SQL_TO_CREATE_POST_TABLE = '''
             CREATE TABLE IF NOT EXISTS POST (
-            user_id TINYINT NOT NULL,
+            user_id INT NOT NULL,
+            post_comment VARCHAR (255),
             image_location_URL VARCHAR (255) NOT NULL UNIQUE,
             is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
             last_edited DATETIME,
@@ -66,6 +67,13 @@ def drop_user_table():
     connection.cursor().execute("DROP TABLE USER;")
     connection.commit()
     connection.close()
+
+
+def drop_post_table():
+    db_connection = get_db_connection()
+    cursor = db_connection.cursor()
+    cursor.execute("DROP TABLE POST;")
+    db_connection.close()
 
 
 def drop_all_tables():

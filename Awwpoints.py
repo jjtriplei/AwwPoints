@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 from database import tables, Manager
-from models import user
+from models import user, post
 import testing
 
 app = Flask(__name__)

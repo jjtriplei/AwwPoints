@@ -37,9 +37,9 @@ class User:
         print("Closed DB connection")
 
     @staticmethod
-    def get_user_by_userid(userid):
+    def get_user_by_userid(user_id):
         connection = Manager.get_db_connection()
-        connection.cursor().execute("SELECT * FROM USER WHERE rowid = (?)", (userid,))
+        connection.cursor().execute("SELECT * FROM USER WHERE rowid = (?)", (user_id,))
         connection.close()
 
     @staticmethod
@@ -62,17 +62,17 @@ class User:
         connection.close()
 
     @staticmethod
-    def delete_user_by_userid(userid):
+    def delete_user_by_userid(user_id):
         connection = Manager.get_db_connection()
-        connection.cursor().execute("DELETE FROM USER WHERE rowid = (?)", (userid,))
+        connection.cursor().execute("DELETE FROM USER WHERE rowid = (?)", (user_id,))
         connection.commit()
         connection.close()
 
     @staticmethod
-    def update_email_address(userid, email_address):
+    def update_email_address(user_id, email_address):
         connection = Manager.get_db_connection()
         connection.cursor().execute("UPDATE USER SET email_address = (?) WHERE  rowid= (?);",
-                                    (email_address, userid,))
+                                    (email_address, user_id,))
         connection.commit()
         connection.close()
 
