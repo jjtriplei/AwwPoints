@@ -14,15 +14,27 @@ import datetime
 
 
 SQL_TO_CREATE_USER_TABLE = '''
-         CREATE TABLE USER (
-         username VARCHAR (255) NOT NULL UNIQUE,
-         email_address VARCHAR (255) NOT NULL UNIQUE,
-         password TINYINT NOT NULL,
-         last_logged_in DATETIME NOT NULL,
-         is_pass_sequential BOOLEAN NOT NULL DEFAULT True,
-         violation_count TINYINT NOT NULL DEFAULT 0
-         )
-         '''
+            CREATE TABLE IF NOT EXISTS USER (
+            username VARCHAR (255) NOT NULL UNIQUE,
+            email_address VARCHAR (255) NOT NULL UNIQUE,
+            password TINYINT NOT NULL,
+            last_logged_in DATETIME NOT NULL,
+            is_pass_sequential BOOLEAN NOT NULL DEFAULT True,
+            violation_count TINYINT NOT NULL DEFAULT 0
+            )
+            '''
+
+
+SQL_TO_CREATE_POST_TABLE = '''
+            CREATE TABLE IF NOT EXISTS POST (
+            user_id TINYINT NOT NULL,
+            image_location_URL VARCHAR (255) NOT NULL UNIQUE,
+            is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
+            last_edited DATETIME,
+            posted_date DATETIME,
+            FOREIGN KEY (user_id) REFERENCES USER(rowid)
+            )
+            '''
 
 
 def get_db_connection():
@@ -41,7 +53,7 @@ def create_all_tables():
     db_connection = get_db_connection()
     cursor = db_connection.cursor()
     cursor.execute(SQL_TO_CREATE_USER_TABLE)
-    # cursor.execute(SQL_TO_CREATE_POST_TABLE)
+    cursor.execute(SQL_TO_CREATE_POST_TABLE)
     # cursor.execute(SQL_TO_CREATE_POINTS_TABLE)
     # cursor.execute(SQL_TO_CREATE_COMMENTS_TABLE)
     # cursor.execute(SQL_TO_CREATE_ACTIVITY_TABLE)
@@ -65,3 +77,6 @@ def drop_all_tables():
     connection.cursor().execute("DROP TABLE ACTIVITY;")
     connection.commit()
     connection.close()
+
+
+create_all_tables()

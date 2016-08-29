@@ -1,7 +1,7 @@
 import datetime
 from database import Manager
 import sqlite3
-from models.exceptions import UsernameAlreadyExists,EmailAlreadyExists
+from models.exceptions import UsernameAlreadyExistsError,EmailAlreadyExistsError
 
 
 #  USER CLASS SETTINGS
@@ -27,9 +27,9 @@ class User:
                 (self.username, self.email_address, self.password, datetime.datetime.now(), self.is_pass_sequential))
         except sqlite3.IntegrityError as error:
             if "email_address" in str(error).lower():
-                raise EmailAlreadyExists
+                raise EmailAlreadyExistsError
             elif "username" in str(error).lower():
-                raise UsernameAlreadyExists
+                raise UsernameAlreadyExistsError
         else:
             print("Looks like account was created")
         db_connection.commit()

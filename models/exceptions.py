@@ -1,8 +1,8 @@
 
 
-class UsernameAlreadyExists(Exception):
+class UsernameAlreadyExistsError(Exception):
     pass
 
 
-class EmailAlreadyExists(Exception):
+class EmailAlreadyExistsError(Exception):
     pass
