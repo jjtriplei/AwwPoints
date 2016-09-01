@@ -37,6 +37,13 @@ class post:
         db_connection.close()
 
     @staticmethod
+    def get_all_posts_by_last_edited():
+        db_connection = Manager.get_db_connection()
+        cursor = db_connection.cursor()
+        cursor.execute("SELECT * FROM POST ORDER BY last_edited ASC")
+        db_connection.close()
+
+    @staticmethod
     def update_post_comment(post_id,new_post_comment):
         db_connection = Manager.get_db_connection()
         cursor = db_connection.cursor()
@@ -56,13 +63,13 @@ class post:
 
 
 
-happy = post(5,"Here we go","www.github.com/3")
-happy.insert_into_database()
-happy.update_post_comment(10, "Update me baby!")
-
-post.update_post_comment(8, "Check Last Edited SON!")
-
-post.mark_comment_as_deleted(9)
+# happy = post(5,"Here we go","www.github.com/3")
+# happy.insert_into_database()
+# happy.update_post_comment(10, "Update me baby!")
+#
+# post.update_post_comment(8, "Check Last Edited SON!")
+#
+# post.mark_comment_as_deleted(9)
 
 # db_connection = Manager.get_db_connection()
 # cursor = db_connection.cursor()
