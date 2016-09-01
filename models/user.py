@@ -1,7 +1,7 @@
 import datetime
 from database import Manager
 import sqlite3
-from models.exceptions import UsernameAlreadyExistsError,EmailAlreadyExistsError
+from models.exceptions import UsernameAlreadyExistsError, EmailAlreadyExistsError
 
 
 #  USER CLASS SETTINGS
@@ -23,8 +23,9 @@ class User:
         cursor = db_connection.cursor()
         try:
             cursor.execute(
-                "INSERT INTO USER (USERNAME,EMAIL_ADDRESS,PASSWORD,LAST_LOGGED_IN,IS_PASS_SEQUENTIAL) VALUES (?,?,?,?,?)",
-                (self.username, self.email_address, self.password, datetime.datetime.now(), self.is_pass_sequential))
+                "INSERT INTO USER (USERNAME,EMAIL_ADDRESS,PASSWORD,LAST_LOGGED_IN,IS_PASS_SEQUENTIAL) "
+                "VALUES (?,?,?,?,?)", (self.username, self.email_address, self.password,
+                                       datetime.datetime.now(), self.is_pass_sequential))
         except sqlite3.IntegrityError as error:
             if "email_address" in str(error).lower():
                 raise EmailAlreadyExistsError
@@ -39,42 +40,48 @@ class User:
     @staticmethod
     def get_user_by_userid(user_id):
         connection = Manager.get_db_connection()
-        connection.cursor().execute("SELECT * FROM USER WHERE rowid = (?)", (user_id,))
+        cursor = connection.cursor()
+        cursor.execute("SELECT * FROM USER WHERE rowid = (?)", (user_id,))
         cursor.fetchall()
         connection.close()
 
     @staticmethod
     def get_user_by_email_address(email_address):
         connection = Manager.get_db_connection()
-        connection.cursor().execute("SELECT * FROM USER WHERE email_address = (?)", (email_address,))
+        cursor = connection.cursor()
+        cursor.execute("SELECT * FROM USER WHERE email_address = (?)", (email_address,))
         cursor.fetchall()
         connection.close()
 
     @staticmethod
     def get_all_users():
         connection = Manager.get_db_connection()
-        connection.cursor().execute("SELECT * FROM USER")
+        cursor = connection.cursor()
+        cursor.execute("SELECT * FROM USER")
         cursor.fetchall()
         connection.close()
 
     @staticmethod
     def delete_user_by_username(username):
         connection = Manager.get_db_connection()
-        connection.cursor().execute("DELETE FROM USER WHERE username = (?)", (username,))
+        cursor = connection.cursor()
+        cursor.execute("DELETE FROM USER WHERE username = (?)", (username,))
         connection.commit()
         connection.close()
 
     @staticmethod
     def delete_user_by_userid(user_id):
         connection = Manager.get_db_connection()
-        connection.cursor().execute("DELETE FROM USER WHERE rowid = (?)", (user_id,))
+        cursor = connection.cursor()
+        cursor.execute("DELETE FROM USER WHERE rowid = (?)", (user_id,))
         connection.commit()
         connection.close()
 
     @staticmethod
     def update_email_address(user_id, email_address):
         connection = Manager.get_db_connection()
-        connection.cursor().execute("UPDATE USER SET email_address = (?) WHERE  rowid= (?);",
+        cursor = connection.cursor()
+        cursor.execute("UPDATE USER SET email_address = (?) WHERE  rowid= (?);",
                                     (email_address, user_id,))
         connection.commit()
         connection.close()
