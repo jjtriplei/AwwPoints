@@ -27,6 +27,7 @@ class post:
         db_connection = Manager.get_db_connection()
         cursor = db_connection.cursor()
         cursor.execute("SELECT * FROM POST WHERE rowid = (?)", (post_id,))
+        cursor.fetchall()
         db_connection.close()
 
     @staticmethod
@@ -34,6 +35,7 @@ class post:
         db_connection = Manager.get_db_connection()
         cursor = db_connection.cursor()
         cursor.execute("SELECT * FROM POST WHERE user_id = (?)", (user_id))
+        cursor.fetchall()
         db_connection.close()
 
     @staticmethod
@@ -41,6 +43,7 @@ class post:
         db_connection = Manager.get_db_connection()
         cursor = db_connection.cursor()
         cursor.execute("SELECT * FROM POST ORDER BY last_edited ASC")
+        cursor.fetchall()
         db_connection.close()
 
     @staticmethod
@@ -59,6 +62,7 @@ class post:
         cursor.execute("UPDATE POST SET is_deleted = (?) WHERE rowid= (?);", (True,post_id))
         db_connection.commit()
         db_connection.close()
+
 
 
 

@@ -40,18 +40,21 @@ class User:
     def get_user_by_userid(user_id):
         connection = Manager.get_db_connection()
         connection.cursor().execute("SELECT * FROM USER WHERE rowid = (?)", (user_id,))
+        cursor.fetchall()
         connection.close()
 
     @staticmethod
     def get_user_by_email_address(email_address):
         connection = Manager.get_db_connection()
         connection.cursor().execute("SELECT * FROM USER WHERE email_address = (?)", (email_address,))
+        cursor.fetchall()
         connection.close()
 
     @staticmethod
     def get_all_users():
         connection = Manager.get_db_connection()
         connection.cursor().execute("SELECT * FROM USER")
+        cursor.fetchall()
         connection.close()
 
     @staticmethod
