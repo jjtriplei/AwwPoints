@@ -28,7 +28,7 @@ class Post:
         db_connection = Manager.get_db_connection()
         cursor = db_connection.cursor()
         cursor.execute("SELECT * FROM POST WHERE rowid = (?)", (post_id,))
-        cursor.fetchall()
+        return cursor.fetchall()
         db_connection.close()
 
     @staticmethod
@@ -36,7 +36,7 @@ class Post:
         db_connection = Manager.get_db_connection()
         cursor = db_connection.cursor()
         cursor.execute("SELECT * FROM POST WHERE user_id = (?)", (user_id))
-        cursor.fetchall()
+        return cursor.fetchall()
         db_connection.close()
 
     @staticmethod
@@ -44,7 +44,7 @@ class Post:
         db_connection = Manager.get_db_connection()
         cursor = db_connection.cursor()
         cursor.execute("SELECT * FROM POST ORDER BY last_edited ASC")
-        cursor.fetchall()
+        return cursor.fetchall()
         db_connection.close()
 
     @staticmethod

@@ -42,7 +42,7 @@ class User:
         connection = Manager.get_db_connection()
         cursor = connection.cursor()
         cursor.execute("SELECT * FROM USER WHERE rowid = (?)", (user_id,))
-        cursor.fetchall()
+        return cursor.fetchall()
         connection.close()
 
     @staticmethod
@@ -50,7 +50,7 @@ class User:
         connection = Manager.get_db_connection()
         cursor = connection.cursor()
         cursor.execute("SELECT * FROM USER WHERE email_address = (?)", (email_address,))
-        cursor.fetchall()
+        return cursor.fetchall()
         connection.close()
 
     @staticmethod
@@ -58,7 +58,7 @@ class User:
         connection = Manager.get_db_connection()
         cursor = connection.cursor()
         cursor.execute("SELECT * FROM USER")
-        cursor.fetchall()
+        return cursor.fetchall()
         connection.close()
 
     @staticmethod
