@@ -38,50 +38,55 @@ class User:
         print("Closed DB connection")
 
     @staticmethod
-    def get_user_by_userid(user_id):
-        connection = Manager.get_db_connection()
-        cursor = connection.cursor()
-        cursor.execute("SELECT * FROM USER WHERE rowid = (?)", (user_id,))
-        return cursor.fetchall()
-        connection.close()
+    def get_user_by_user_id(user_id):
+        db_connection = Manager.get_db_connection()
+        cursor = db_connection.cursor()
+        cursor.execute("SELECT rowid, * FROM USER WHERE rowid = (?)", (user_id,))
+        query_results = cursor.fetchall()
+        db_connection.close()
+        return query_results
 
     @staticmethod
     def get_user_by_email_address(email_address):
-        connection = Manager.get_db_connection()
-        cursor = connection.cursor()
-        cursor.execute("SELECT * FROM USER WHERE email_address = (?)", (email_address,))
-        return cursor.fetchall()
-        connection.close()
+        db_connection = Manager.get_db_connection()
+        cursor = db_connection.cursor()
+        cursor.execute("SELECT rowid, * FROM USER WHERE email_address = (?)", (email_address,))
+        query_results = cursor.fetchall()
+        db_connection.close()
+        return query_results
+
 
     @staticmethod
     def get_all_users():
-        connection = Manager.get_db_connection()
-        cursor = connection.cursor()
-        cursor.execute("SELECT * FROM USER")
-        return cursor.fetchall()
-        connection.close()
+        db_connection = Manager.get_db_connection()
+        cursor = db_connection.cursor()
+        cursor.execute("SELECT rowid, * FROM USER")
+        query_results = cursor.fetchall()
+        db_connection.close()
+        return query_results
+
 
     @staticmethod
     def delete_user_by_username(username):
-        connection = Manager.get_db_connection()
-        cursor = connection.cursor()
+        db_connection = Manager.get_db_connection()
+        cursor = db_connection.cursor()
         cursor.execute("DELETE FROM USER WHERE username = (?)", (username,))
-        connection.commit()
-        connection.close()
+        db_connection.commit()
+        db_connection.close()
 
     @staticmethod
     def delete_user_by_userid(user_id):
-        connection = Manager.get_db_connection()
-        cursor = connection.cursor()
+        db_connection = Manager.get_db_connection()
+        cursor = db_connection.cursor()
         cursor.execute("DELETE FROM USER WHERE rowid = (?)", (user_id,))
-        connection.commit()
-        connection.close()
+        db_connection.commit()
+        db_connection.close()
 
     @staticmethod
     def update_email_address(user_id, email_address):
-        connection = Manager.get_db_connection()
-        cursor = connection.cursor()
+        db_connection = Manager.get_db_connection()
+        cursor = db_connection.cursor()
         cursor.execute("UPDATE USER SET email_address = (?) WHERE  rowid= (?);",
                                     (email_address, user_id,))
-        connection.commit()
-        connection.close()
+        db_connection.commit()
+        db_connection.close()

@@ -28,24 +28,27 @@ class Post:
         db_connection = Manager.get_db_connection()
         cursor = db_connection.cursor()
         cursor.execute("SELECT * FROM POST WHERE rowid = (?)", (post_id,))
-        return cursor.fetchall()
+        query_results = cursor.fetchall()
         db_connection.close()
+        return query_results
 
     @staticmethod
     def get_all_posts_from_user(user_id):
         db_connection = Manager.get_db_connection()
         cursor = db_connection.cursor()
         cursor.execute("SELECT * FROM POST WHERE user_id = (?)", (user_id))
-        return cursor.fetchall()
+        query_results = cursor.fetchall()
         db_connection.close()
+        return query_results
 
     @staticmethod
     def get_all_posts_by_last_edited():
         db_connection = Manager.get_db_connection()
         cursor = db_connection.cursor()
         cursor.execute("SELECT * FROM POST ORDER BY last_edited ASC")
-        return cursor.fetchall()
+        query_results = cursor.fetchall()
         db_connection.close()
+        return query_results
 
     @staticmethod
     def update_post_comment(post_id, new_post_comment):

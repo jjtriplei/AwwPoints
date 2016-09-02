@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 from database import tables, Manager
-from models import user, post
+from models.user import User
+from models import post
 import testing
 
 app = Flask(__name__)
@@ -24,6 +25,18 @@ def news():
 def testingJinja():
     Joe_dic = tables.user_joe()
     return render_template('test.html', dictionary=Joe_dic)
+
+
+@app.route('/users')
+def users():
+    all_users = User.get_all_users()
+    return render_template('users.html', all_users=all_users)
+
+
+@app.route('/user/<int:user_id>')
+def user(user_id):
+    retrieved_user = User.get_user_by_user_id(user_id)
+    return render_template('user.html', user_profile=retrieved_user)
 
 
 # Only run this statement if someone directly runs this python file.
