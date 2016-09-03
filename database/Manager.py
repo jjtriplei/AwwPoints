@@ -38,6 +38,14 @@ SQL_TO_CREATE_POST_TABLE = '''
             '''
 
 
+SQL_TO_CREATE_POINTS_TABLE = ""
+
+
+SQL_TO_CREATE_COMMENTS_TABLE = ""
+
+
+SQL_TO_CREATE_ACTIVITY_TABLE = ""
+
 def get_db_connection():
     conn = sqlite3.connect(os.path.join(os.path.dirname(__file__), 'ap_db.sqlite'))
     return conn
@@ -60,6 +68,30 @@ def create_all_tables():
     # cursor.execute(SQL_TO_CREATE_ACTIVITY_TABLE)
     db_connection.commit()
     db_connection.close()
+
+
+def check_tables_exist():
+    db_connection = get_db_connection()
+    cursor = db_connection.cursor()
+    cursor.execute("SELECT tbl_name FROM sqlite_master")
+    table_names = cursor.fetchall()
+    ap_tables = {"USER": False, "POST": False, "POINTS": False, "COMMENTS": False, "ACTIVITY": False}
+
+    for table in table_names:
+        ap_tables[table[0]] = True
+
+    for key, value in ap_tables.items():
+        if value == False:
+            create_single_table(key, cursor, db_connection)
+    db_connection.close()
+
+
+def create_single_table(table_name, cursor, db_connection):
+    table_creation_sql_map = {"USER": SQL_TO_CREATE_USER_TABLE, "POST": SQL_TO_CREATE_POST_TABLE,
+                              "POINTS": SQL_TO_CREATE_POINTS_TABLE, "COMMENTS": SQL_TO_CREATE_COMMENTS_TABLE,
+                              "ACTIVITY": SQL_TO_CREATE_ACTIVITY_TABLE}
+    cursor.execute(table_creation_sql_map[table_name])
+    db_connection.commit()
 
 
 def drop_user_table():
@@ -85,6 +117,3 @@ def drop_all_tables():
     connection.cursor().execute("DROP TABLE ACTIVITY;")
     connection.commit()
     connection.close()
-
-
-create_all_tables()

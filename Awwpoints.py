@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from database import tables, Manager
+from database import Manager
 from models.user import User
 from models import post
 import testing
@@ -21,11 +21,6 @@ def news():
                            user=my_user,
                            some_numbers=some_array)
 
-@app.route('/test')
-def testingJinja():
-    Joe_dic = tables.user_joe()
-    return render_template('test.html', dictionary=Joe_dic)
-
 
 @app.route('/users')
 def users():
@@ -42,6 +37,5 @@ def user(user_id):
 # Only run this statement if someone directly runs this python file.
 # If it's being imported - this will not run.
 if __name__ == '__main__':
+    # Manager.check_tables_exist()
     app.run()
-
-
