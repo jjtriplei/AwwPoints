@@ -37,5 +37,5 @@ def user(user_id):
 # Only run this statement if someone directly runs this python file.
 # If it's being imported - this will not run.
 if __name__ == '__main__':
-    # Manager.check_tables_exist()
+    Manager.check_tables_exist()
     app.run()

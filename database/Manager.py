@@ -31,20 +31,46 @@ SQL_TO_CREATE_POST_TABLE = '''
             post_comment VARCHAR (255),
             image_location_URL VARCHAR (255) NOT NULL UNIQUE,
             is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
-            last_edited DATETIME,
-            posted_date DATETIME,
+            last_edited DATETIME NOT NULL,
+            posted_date DATETIME NOT NULL,
             FOREIGN KEY (user_id) REFERENCES USER(rowid)
             )
             '''
 
 
-SQL_TO_CREATE_POINTS_TABLE = ""
+SQL_TO_CREATE_POINTS_TABLE = '''
+            CREATE TABLE IF NOT EXISTS POINTS (
+            point_giver INT NOT NULL,
+            post INT NOT NULL,
+            date_created DATETIME NOT NULL,
+            is_aww BOOLEAN NOT NULL DEFAULT TRUE,
+            FOREIGN KEY (point_giver) REFERENCES USER(rowid),
+            FOREIGN KEY (post) REFERENCES POST(rowid)
+            )
+            '''
 
 
-SQL_TO_CREATE_COMMENTS_TABLE = ""
+SQL_TO_CREATE_COMMENTS_TABLE = '''
+            CREATE TABLE IF NOT EXISTS COMMENTS (
+            commenter INT NOT NULL,
+            post INT NOT NULL,
+            comment VARCHAR (255) NOT NULL,
+            date_created DATETIME NOT NULL,
+            FOREIGN KEY (commenter) REFERENCES USER(rowid),
+            FOREIGN KEY (post) REFERENCES POST(rowid)
+            )
+            '''
 
 
-SQL_TO_CREATE_ACTIVITY_TABLE = ""
+SQL_TO_CREATE_ACTIVITY_TABLE = '''
+            CREATE TABLE IF NOT EXISTS ACTIVITY (
+            activity0 INT NOT NULL,
+            activity1 INT NOT NULL,
+            activity2 VARCHAR (255) NOT NULL,
+            activity3 DATETIME NOT NULL
+            )
+            '''
+
 
 def get_db_connection():
     conn = sqlite3.connect(os.path.join(os.path.dirname(__file__), 'ap_db.sqlite'))
@@ -63,9 +89,9 @@ def create_all_tables():
     cursor = db_connection.cursor()
     cursor.execute(SQL_TO_CREATE_USER_TABLE)
     cursor.execute(SQL_TO_CREATE_POST_TABLE)
-    # cursor.execute(SQL_TO_CREATE_POINTS_TABLE)
-    # cursor.execute(SQL_TO_CREATE_COMMENTS_TABLE)
-    # cursor.execute(SQL_TO_CREATE_ACTIVITY_TABLE)
+    cursor.execute(SQL_TO_CREATE_POINTS_TABLE)
+    cursor.execute(SQL_TO_CREATE_COMMENTS_TABLE)
+    cursor.execute(SQL_TO_CREATE_ACTIVITY_TABLE)
     db_connection.commit()
     db_connection.close()
 

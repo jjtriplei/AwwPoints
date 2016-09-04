@@ -55,7 +55,6 @@ class User:
         db_connection.close()
         return query_results
 
-
     @staticmethod
     def get_all_users():
         db_connection = Manager.get_db_connection()
@@ -64,7 +63,6 @@ class User:
         query_results = cursor.fetchall()
         db_connection.close()
         return query_results
-
 
     @staticmethod
     def delete_user_by_username(username):
@@ -87,6 +85,6 @@ class User:
         db_connection = Manager.get_db_connection()
         cursor = db_connection.cursor()
         cursor.execute("UPDATE USER SET email_address = (?) WHERE  rowid= (?);",
-                                    (email_address, user_id,))
+                       (email_address, user_id,))
         db_connection.commit()
         db_connection.close()
