@@ -35,7 +35,6 @@ class User:
             print("Looks like account was created")
         db_connection.commit()
         db_connection.close()
-        print("Closed DB connection")
 
     @staticmethod
     def get_user_by_user_id(user_id):

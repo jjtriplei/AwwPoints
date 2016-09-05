@@ -31,27 +31,27 @@ SQL_TO_CREATE_POST_TABLE = '''
             post_comment VARCHAR (255),
             image_location_URL VARCHAR (255) NOT NULL UNIQUE,
             is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
-            last_edited DATETIME NOT NULL,
+            last_edited DATETIME,
             posted_date DATETIME NOT NULL,
             FOREIGN KEY (user_id) REFERENCES USER(rowid)
             )
             '''
 
 
-SQL_TO_CREATE_POINTS_TABLE = '''
-            CREATE TABLE IF NOT EXISTS POINTS (
-            point_giver INT NOT NULL,
-            post INT NOT NULL,
-            date_created DATETIME NOT NULL,
-            is_aww BOOLEAN NOT NULL DEFAULT TRUE,
-            FOREIGN KEY (point_giver) REFERENCES USER(rowid),
-            FOREIGN KEY (post) REFERENCES POST(rowid)
-            )
-            '''
+SQL_TO_CREATE_POINT_TABLE = '''
+        CREATE TABLE IF NOT EXISTS POINT (
+        point_giver INT NOT NULL,
+        post INT NOT NULL,
+        date_created DATETIME NOT NULL,
+        is_aww BOOLEAN NOT NULL DEFAULT TRUE,
+        FOREIGN KEY (point_giver) REFERENCES USER(rowid),
+        FOREIGN KEY (post) REFERENCES POST(rowid)
+        )
+        '''
 
 
-SQL_TO_CREATE_COMMENTS_TABLE = '''
-            CREATE TABLE IF NOT EXISTS COMMENTS (
+SQL_TO_CREATE_COMMENT_TABLE = '''
+            CREATE TABLE IF NOT EXISTS COMMENT (
             commenter INT NOT NULL,
             post INT NOT NULL,
             comment VARCHAR (255) NOT NULL,
@@ -61,7 +61,7 @@ SQL_TO_CREATE_COMMENTS_TABLE = '''
             )
             '''
 
-
+# This table has not yet been defined. This code block is a placeholder.
 SQL_TO_CREATE_ACTIVITY_TABLE = '''
             CREATE TABLE IF NOT EXISTS ACTIVITY (
             activity0 INT NOT NULL,
@@ -101,7 +101,7 @@ def check_tables_exist():
     cursor = db_connection.cursor()
     cursor.execute("SELECT tbl_name FROM sqlite_master")
     table_names = cursor.fetchall()
-    ap_tables = {"USER": False, "POST": False, "POINTS": False, "COMMENTS": False, "ACTIVITY": False}
+    ap_tables = {"USER": False, "POST": False, "POINT": False, "COMMENT": False, "ACTIVITY": False}
 
     for table in table_names:
         ap_tables[table[0]] = True
@@ -114,7 +114,7 @@ def check_tables_exist():
 
 def create_single_table(table_name, cursor, db_connection):
     table_creation_sql_map = {"USER": SQL_TO_CREATE_USER_TABLE, "POST": SQL_TO_CREATE_POST_TABLE,
-                              "POINTS": SQL_TO_CREATE_POINTS_TABLE, "COMMENTS": SQL_TO_CREATE_COMMENTS_TABLE,
+                              "POINT": SQL_TO_CREATE_POINT_TABLE, "COMMENT": SQL_TO_CREATE_COMMENT_TABLE,
                               "ACTIVITY": SQL_TO_CREATE_ACTIVITY_TABLE}
     cursor.execute(table_creation_sql_map[table_name])
     db_connection.commit()

@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 from database import Manager
 from models.user import User
 from models import post
+from models import comment
 import testing
 
 app = Flask(__name__)
