@@ -40,24 +40,24 @@ SQL_TO_CREATE_POST_TABLE = '''
 
 SQL_TO_CREATE_POINT_TABLE = '''
         CREATE TABLE IF NOT EXISTS POINT (
-        point_giver INT NOT NULL,
-        post INT NOT NULL,
+        user_id INT NOT NULL,
+        post_id INT NOT NULL,
         date_created DATETIME NOT NULL,
         is_aww BOOLEAN NOT NULL DEFAULT TRUE,
-        FOREIGN KEY (point_giver) REFERENCES USER(rowid),
-        FOREIGN KEY (post) REFERENCES POST(rowid)
+        FOREIGN KEY (user_id) REFERENCES USER(rowid),
+        FOREIGN KEY (post_id) REFERENCES POST(rowid)
         )
         '''
 
 
 SQL_TO_CREATE_COMMENT_TABLE = '''
             CREATE TABLE IF NOT EXISTS COMMENT (
-            commenter INT NOT NULL,
-            post INT NOT NULL,
+            user_id INT NOT NULL,
+            post_id INT NOT NULL,
             comment VARCHAR (255) NOT NULL,
             date_created DATETIME NOT NULL,
-            FOREIGN KEY (commenter) REFERENCES USER(rowid),
-            FOREIGN KEY (post) REFERENCES POST(rowid)
+            FOREIGN KEY (user_id) REFERENCES USER(rowid),
+            FOREIGN KEY (post_id) REFERENCES POST(rowid)
             )
             '''
 

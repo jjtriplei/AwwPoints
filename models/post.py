@@ -60,6 +60,14 @@ class Post:
         db_connection.close()
 
     @staticmethod
+    def update_last_edited(post_id, db_object):
+        db_connection = db_object
+        cursor = db_connection.cursor()
+        cursor.execute("UPDATE POST SET last_edited = (?) WHERE rowid= (?);",
+                       (datetime.datetime.now(), post_id))
+        db_connection.commit()
+
+    @staticmethod
     def mark_comment_as_deleted(post_id):
         db_connection = Manager.get_db_connection()
         cursor = db_connection.cursor()
