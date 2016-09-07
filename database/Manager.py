@@ -55,6 +55,7 @@ SQL_TO_CREATE_COMMENT_TABLE = '''
             user_id INT NOT NULL,
             post_id INT NOT NULL,
             comment VARCHAR (255) NOT NULL,
+            is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
             date_created DATETIME NOT NULL,
             FOREIGN KEY (user_id) REFERENCES USER(rowid),
             FOREIGN KEY (post_id) REFERENCES POST(rowid)
@@ -84,16 +85,16 @@ def insert_and_commit(sql_command, *args, **kwargs):
     connection.close()
 
 
-def create_all_tables():
-    db_connection = get_db_connection()
-    cursor = db_connection.cursor()
-    cursor.execute(SQL_TO_CREATE_USER_TABLE)
-    cursor.execute(SQL_TO_CREATE_POST_TABLE)
-    cursor.execute(SQL_TO_CREATE_POINTS_TABLE)
-    cursor.execute(SQL_TO_CREATE_COMMENTS_TABLE)
-    cursor.execute(SQL_TO_CREATE_ACTIVITY_TABLE)
-    db_connection.commit()
-    db_connection.close()
+# def create_all_tables():
+#     db_connection = get_db_connection()
+#     cursor = db_connection.cursor()
+#     cursor.execute(SQL_TO_CREATE_USER_TABLE)
+#     cursor.execute(SQL_TO_CREATE_POST_TABLE)
+#     cursor.execute(SQL_TO_CREATE_POINT_TABLE)
+#     cursor.execute(SQL_TO_CREATE_COMMENT_TABLE)
+#     cursor.execute(SQL_TO_CREATE_ACTIVITY_TABLE)
+#     db_connection.commit()
+#     db_connection.close()
 
 
 def check_tables_exist():

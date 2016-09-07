@@ -68,7 +68,7 @@ class Post:
         db_connection.commit()
 
     @staticmethod
-    def mark_comment_as_deleted(post_id):
+    def mark_post_as_deleted(post_id):
         db_connection = Manager.get_db_connection()
         cursor = db_connection.cursor()
         cursor.execute("UPDATE POST SET is_deleted = (?) WHERE rowid= (?);", (True, post_id))
