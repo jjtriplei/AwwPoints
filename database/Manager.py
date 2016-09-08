@@ -19,8 +19,11 @@ SQL_TO_CREATE_USER_TABLE = '''
             email_address VARCHAR (255) NOT NULL UNIQUE,
             password TINYINT NOT NULL,
             last_logged_in DATETIME NOT NULL,
-            is_pass_sequential BOOLEAN NOT NULL DEFAULT True,
-            violation_count TINYINT NOT NULL DEFAULT 0
+            is_pass_sequential BOOLEAN NOT NULL DEFAULT 1,
+            violation_count TINYINT NOT NULL DEFAULT 0,
+            is_admin BOOLEAN NOT NULL DEFAULT 0,
+            is_active BOOLEAN NOT NULL DEFAULT 1,
+            profile_pic_url VARCHAR (2083)
             )
             '''
 
@@ -30,7 +33,7 @@ SQL_TO_CREATE_POST_TABLE = '''
             user_id INT NOT NULL,
             post_comment VARCHAR (255),
             image_location_URL VARCHAR (255) NOT NULL UNIQUE,
-            is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
+            is_deleted BOOLEAN NOT NULL DEFAULT 0,
             last_edited DATETIME,
             posted_date DATETIME NOT NULL,
             FOREIGN KEY (user_id) REFERENCES USER(rowid)
@@ -43,7 +46,7 @@ SQL_TO_CREATE_POINT_TABLE = '''
         user_id INT NOT NULL,
         post_id INT NOT NULL,
         date_created DATETIME NOT NULL,
-        is_aww BOOLEAN NOT NULL DEFAULT TRUE,
+        is_aww BOOLEAN NOT NULL DEFAULT 1,
         FOREIGN KEY (user_id) REFERENCES USER(rowid),
         FOREIGN KEY (post_id) REFERENCES POST(rowid)
         )
@@ -55,7 +58,7 @@ SQL_TO_CREATE_COMMENT_TABLE = '''
             user_id INT NOT NULL,
             post_id INT NOT NULL,
             comment VARCHAR (255) NOT NULL,
-            is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
+            is_deleted BOOLEAN NOT NULL DEFAULT 0,
             date_created DATETIME NOT NULL,
             FOREIGN KEY (user_id) REFERENCES USER(rowid),
             FOREIGN KEY (post_id) REFERENCES POST(rowid)
