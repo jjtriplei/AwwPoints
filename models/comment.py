@@ -20,6 +20,14 @@ class Comment:
         db_connection.commit()
         db_connection.close()
 
+    # NEED TO CHANGE CLASS OBJECT #
+    def mark_comment_as_deleted(self):
+        db_connection = Manager.get_db_connection()
+        cursor = db_connection.cursor()
+        cursor.execute("UPDATE COMMENT SET is_deleted = (?) WHERE rowid = (?)", (True, comment_id))
+        db_connection.commit()
+        db_connection.close()
+
     @staticmethod
     def get_comments_by_post(post_id):
         db_connection = Manager.get_db_connection()
@@ -42,14 +50,7 @@ class Comment:
     def edit_comment(comment_id, edited_comment):
         db_connection = Manager.get_db_connection()
         cursor = db_connection.cursor()
-        cursor.execute("UPDATE COMMENT SET COMMENT = (?), date_created = (?) WHERE rowid = (?);", (edited_comment, datetime.datetime.now(), comment_id))
-        db_connection.commit()
-        db_connection.close()
-
-    @staticmethod
-    def mark_comment_as_deleted(comment_id):
-        db_connection = Manager.get_db_connection()
-        cursor = db_connection.cursor()
-        cursor.execute("UPDATE COMMENT SET is_deleted = (?) WHERE rowid = (?)", (True, comment_id))
+        cursor.execute("UPDATE COMMENT SET COMMENT = (?), date_created = (?) WHERE rowid = (?);",
+                       (edited_comment, datetime.datetime.now(), comment_id))
         db_connection.commit()
         db_connection.close()

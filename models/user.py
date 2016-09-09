@@ -6,17 +6,38 @@ from models.exceptions import UsernameAlreadyExistsError, EmailAlreadyExistsErro
 
 #  USER CLASS SETTINGS
 
+# (1, 'Joseph', 'Joseph@John.com', 12345, '2016-08-24 21:12:18.656620', 1, 0)
+
+'''
+CREATE TABLE IF NOT EXISTS USER (
+username VARCHAR (255) NOT NULL UNIQUE,
+email_address VARCHAR (255) NOT NULL UNIQUE,
+password TINYINT NOT NULL,
+last_logged_in DATETIME NOT NULL,
+is_pass_sequential BOOLEAN NOT NULL DEFAULT 1,
+violation_count TINYINT NOT NULL DEFAULT 0,
+is_admin BOOLEAN NOT NULL DEFAULT 0,
+is_active BOOLEAN NOT NULL DEFAULT 1 ,
+profile_pic_URL VARCHAR (2083)
+)
+'''
 
 class User:
+    tuple_index = {
+        "user_id": 0,
+        "username": 1,
+        "email_address": 2,
+        "password": 3,
+        "last_logged_in": 4,
+        "is_pass_sequential": 5,
+        "violation_count": 6,
+        "is_admin": 7,
+        "is_active": 8,
+        "profile_pic_URL": 9
+    }
+
     def __init__(self, user_name, email_address, password):
-        self.user_id = ""
-        self.username = user_name
-        self.email_address = email_address
-        self.password = password
-        self.last_logged_in = datetime.datetime.now()
-        self.is_pass_sequential = True
-        self.violation_count = 0
-        self.profile_pic_url = ""
+
 
     def insert_into_database(self):
         db_connection = Manager.get_db_connection()

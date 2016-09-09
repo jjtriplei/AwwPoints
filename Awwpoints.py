@@ -22,7 +22,6 @@ def news():
                            user=my_user,
                            some_numbers=some_array)
 
-
 @app.route('/users')
 def users():
     all_users = User.get_all_users()

@@ -9,9 +9,11 @@
     <ul>
     {% for user in all_users %}
       <li>
-      <a href="/user/{{ user[0] }}">
-          <b> {{ user[1] }} </b> {{ ": " + user[2] }}
-      </a>
+{#      <a href="/user/{{ user[0] }}">#}
+{#          <b> {{ user[1] }} </b> {{ ": " + user[2] }}#}
+{#      </a>#}
+
+        {{ user }}
       </li>
     {% endfor %}
     </ul>
