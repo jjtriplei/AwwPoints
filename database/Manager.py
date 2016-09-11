@@ -22,7 +22,7 @@ SQL_TO_CREATE_USER_TABLE = '''
             is_pass_sequential BOOLEAN NOT NULL DEFAULT 1,
             violation_count TINYINT NOT NULL DEFAULT 0,
             is_admin BOOLEAN NOT NULL DEFAULT 0,
-            is_active BOOLEAN NOT NULL DEFAULT 1,
+            is_active BOOLEAN NOT NULL DEFAULT 1 ,
             profile_pic_URL VARCHAR (2083)
             )
             '''

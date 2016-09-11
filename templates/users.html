@@ -8,12 +8,13 @@
 {#    {{ all_users }}#}
     <ul>
     {% for user in all_users %}
-        <li> {{ user }} </li>
-{#      <li>#}
-{#      <a href="/user/{{ user.user_id }}">#}
-{#          <b> {{ user.username }} </b> {{ ": " + user.email_address }}#}
+      <li>
+{#      <a href="/user/{{ user[0] }}">#}
+{#          <b> {{ user[1] }} </b> {{ ": " + user[2] }}#}
 {#      </a>#}
-{#      </li>#}
+
+        {{ user }}
+      </li>
     {% endfor %}
     </ul>
 
