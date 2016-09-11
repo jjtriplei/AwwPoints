@@ -3,10 +3,15 @@ from database import Manager
 import sqlite3
 from models.exceptions import UsernameAlreadyExistsError, EmailAlreadyExistsError
 
+
+#  USER CLASS SETTINGS
+
+# (1, 'Joseph', 'Joseph@John.com', 12345, '2016-08-24 21:12:18.656620', 1, 0)
+
+
 class User:
-    # (1, 'Joseph0', 'Email0@aol.com', 123, '2016-09-07 18:57:00.026029', 1, 0, 'False', 'True', None)
-    tuple_positions = {
-        "row_id": 0,
+    tuple_index = {
+        "user_id": 0,
         "username": 1,
         "email_address": 2,
         "password": 3,
@@ -15,34 +20,32 @@ class User:
         "violation_count": 6,
         "is_admin": 7,
         "is_active": 8,
-        "profile_pic_url": 9
+        "profile_pic_URL": 9
     }
 
-    def __init__(self, user_tuple=None):
+    def __init__(self, user_tuple):
         if user_tuple:
-            self.user_id = user_tuple[User.tuple_positions["row_id"]]
-            self.username = user_tuple[User.tuple_positions["username"]]
-            self.email_address = user_tuple[User.tuple_positions["email_address"]]
-            self.password = user_tuple[User.tuple_positions["password"]]
-            self.last_logged_in = user_tuple[User.tuple_positions["last_logged_in"] or datetime.datetime.now()]
-            self.is_pass_sequential = user_tuple[User.tuple_positions["is_pass_sequential"] or 1]
-            self.is_admin = user_tuple[User.tuple_positions["is_admin"] or 0]
-            self.is_active = user_tuple[User.tuple_positions["is_active"] or 1]
-            self.violation_count = user_tuple[User.tuple_positions["violation_count"]]
-            self.profile_pic_url = user_tuple[User.tuple_positions["profile_pic_url"]]
+            self.user_id = user_tuple[User.tuple_index["user_id"]]
+            self.username = user_tuple[User.tuple_index["username"]]
+            self.email_address = user_tuple[User.tuple_index["email_address"]]
+            self.password = user_tuple[User.tuple_index["password"]]
+            self.last_logged_in = user_tuple[User.tuple_index["last_logged_in"]]
+            self.is_pass_sequential = user_tuple[User.tuple_index["is_pass_sequential"]]
+            self.violation_count = user_tuple[User.tuple_index["violation_count"]]
+            self.is_admin = user_tuple[User.tuple_index["is_admin"]]
+            self.is_active = user_tuple[User.tuple_index["is_active"]]
+            self.profile_pic_URL = user_tuple[User.tuple_index["profile_pic_URL"]]
         else:
-            # These are default values - if no data is passed in from the DB as a tuple, these will be set as the values
-            # On the class object.
             self.user_id = None
             self.username = None
             self.email_address = None
             self.password = None
+            self.last_logged_in = None
+            self.is_pass_sequential = None
+            self.violation_count = None
             self.is_admin = None
             self.is_active = None
-            self.violation_count = None
-            self.profile_pic_url = None
-            self.last_logged_in = datetime.datetime.now()
-            self.is_pass_sequential = True
+            self.profile_pic_URL = None
 
     def insert_into_database(self):
         db_connection = Manager.get_db_connection()
@@ -59,15 +62,6 @@ class User:
                 raise UsernameAlreadyExistsError
         else:
             print("Looks like account was created")
-        db_connection.commit()
-        db_connection.close()
-
-    def delete_user(self):
-        self.is_active = 0
-        db_connection = Manager.get_db_connection()
-        cursor = db_connection.cursor()
-        cursor.execute("UPDATE USER SET is_active = (?) WHERE  rowid= (?);",
-                       (self.is_active, self.user_id,))
         db_connection.commit()
         db_connection.close()
 
@@ -91,14 +85,6 @@ class User:
 
     @staticmethod
     def get_all_users():
-        raw_user_data = User.get_all_users_as_tuples()
-        users_to_return = []
-        for user in raw_user_data:
-            users_to_return.append(User(user))
-        return users_to_return
-
-    @staticmethod
-    def get_all_users_as_tuples():
         db_connection = Manager.get_db_connection()
         cursor = db_connection.cursor()
         cursor.execute("SELECT rowid, * FROM USER")
@@ -130,6 +116,3 @@ class User:
                        (email_address, user_id,))
         db_connection.commit()
         db_connection.close()
-
-    def __str__(self):
-        return "AwwPoints User(id: {id}, email: {email})".format(id=self.user_id or "No ID", email=self.email_address or "No E-Mail")

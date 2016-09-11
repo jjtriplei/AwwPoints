@@ -23,7 +23,7 @@ SQL_TO_CREATE_USER_TABLE = '''
             violation_count TINYINT NOT NULL DEFAULT 0,
             is_admin BOOLEAN NOT NULL DEFAULT 0,
             is_active BOOLEAN NOT NULL DEFAULT 1,
-            profile_pic_url VARCHAR (2083)
+            profile_pic_URL VARCHAR (2083)
             )
             '''
 
@@ -86,18 +86,6 @@ def insert_and_commit(sql_command, *args, **kwargs):
     connection.cursor().execute(sql_command, *args, **kwargs)
     connection.commit()
     connection.close()
-
-
-# def create_all_tables():
-#     db_connection = get_db_connection()
-#     cursor = db_connection.cursor()
-#     cursor.execute(SQL_TO_CREATE_USER_TABLE)
-#     cursor.execute(SQL_TO_CREATE_POST_TABLE)
-#     cursor.execute(SQL_TO_CREATE_POINT_TABLE)
-#     cursor.execute(SQL_TO_CREATE_COMMENT_TABLE)
-#     cursor.execute(SQL_TO_CREATE_ACTIVITY_TABLE)
-#     db_connection.commit()
-#     db_connection.close()
 
 
 def check_tables_exist():
