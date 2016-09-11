@@ -8,19 +8,6 @@ from models.exceptions import UsernameAlreadyExistsError, EmailAlreadyExistsErro
 
 # (1, 'Joseph', 'Joseph@John.com', 12345, '2016-08-24 21:12:18.656620', 1, 0)
 
-'''
-CREATE TABLE IF NOT EXISTS USER (
-username VARCHAR (255) NOT NULL UNIQUE,
-email_address VARCHAR (255) NOT NULL UNIQUE,
-password TINYINT NOT NULL,
-last_logged_in DATETIME NOT NULL,
-is_pass_sequential BOOLEAN NOT NULL DEFAULT 1,
-violation_count TINYINT NOT NULL DEFAULT 0,
-is_admin BOOLEAN NOT NULL DEFAULT 0,
-is_active BOOLEAN NOT NULL DEFAULT 1 ,
-profile_pic_URL VARCHAR (2083)
-)
-'''
 
 class User:
     tuple_index = {
@@ -36,8 +23,29 @@ class User:
         "profile_pic_URL": 9
     }
 
-    def __init__(self, user_name, email_address, password):
-
+    def __init__(self, user_tuple):
+        if user_tuple:
+            self.user_id = user_tuple[User.tuple_index["user_id"]]
+            self.username = user_tuple[User.tuple_index["username"]]
+            self.email_address = user_tuple[User.tuple_index["email_address"]]
+            self.password = user_tuple[User.tuple_index["password"]]
+            self.last_logged_in = user_tuple[User.tuple_index["last_logged_in"]]
+            self.is_pass_sequential = user_tuple[User.tuple_index["is_pass_sequential"]]
+            self.violation_count = user_tuple[User.tuple_index["violation_count"]]
+            self.is_admin = user_tuple[User.tuple_index["is_admin"]]
+            self.is_active = user_tuple[User.tuple_index["is_active"]]
+            self.profile_pic_URL = user_tuple[User.tuple_index["profile_pic_URL"]]
+        else:
+            self.user_id = None
+            self.username = None
+            self.email_address = None
+            self.password = None
+            self.last_logged_in = None
+            self.is_pass_sequential = None
+            self.violation_count = None
+            self.is_admin = None
+            self.is_active = None
+            self.profile_pic_URL = None
 
     def insert_into_database(self):
         db_connection = Manager.get_db_connection()
