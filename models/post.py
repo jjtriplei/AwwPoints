@@ -3,20 +3,40 @@ from database import Manager
 
 
 class Post:
-    def __init__(self, user_id, post_comment, location_url):
-        self.user_id = user_id
-        self.post_comment = post_comment
-        self.location_URL = location_url
-        self.is_deleted = False
-        self.last_edited = datetime.datetime.now()
-        self.posted_date = datetime.datetime.now()
+    post_tuple_index = {
+        "post_id": 0,
+        "user_id": 1,
+        "post_comment": 2,
+        "image_location_url": 3,
+        "is_deleted": 4,
+        "last_edited": 5,
+        "posted_date": 6
+    }
+
+    def __init__(self, post_tuple):
+        if post_tuple:
+            self.post_id = post_tuple[Post.post_tuple_index["post_id"]]
+            self.user_id = post_tuple[Post.post_tuple_index["user_id"]]
+            self.post_comment = post_tuple[Post.post_tuple_index["post_comment"]]
+            self.location_url = post_tuple[Post.post_tuple_index["location_url"]]
+            self.is_deleted = post_tuple[Post.post_tuple_index["is_deleted"]]
+            self.last_edited = post_tuple[Post.post_tuple_index["last_edited"]]
+            self.posted_date = post_tuple[Post.post_tuple_index["posted_date"]]
+        else:
+            self.post_id = None
+            self.user_id = None
+            self.post_comment = None
+            self.location_url = None
+            self.is_deleted = None
+            self.last_edited = None
+            self.posted_date = None
 
     def insert_into_database(self):
         db_connection = Manager.get_db_connection()
         cursor = db_connection.cursor()
         cursor.execute("INSERT INTO POST (user_id, post_comment, image_location_url, is_deleted,"
                        "last_edited, posted_date) VALUES (?,?,?,?,?,?)",
-                       (self.user_id, self.post_comment, self.location_URL, self.is_deleted,
+                       (self.user_id, self.post_comment, self.location_url, self.is_deleted,
                         self.last_edited, self.posted_date))
         print("Looks like post was added")
         db_connection.commit()

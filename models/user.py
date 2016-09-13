@@ -6,8 +6,6 @@ from models.exceptions import UsernameAlreadyExistsError, EmailAlreadyExistsErro
 
 #  USER CLASS SETTINGS
 
-# (1, 'Joseph', 'Joseph@John.com', 12345, '2016-08-24 21:12:18.656620', 1, 0)
-
 
 class User:
     tuple_index = {
@@ -52,9 +50,11 @@ class User:
         cursor = db_connection.cursor()
         try:
             cursor.execute(
-                "INSERT INTO USER (USERNAME,EMAIL_ADDRESS,PASSWORD,LAST_LOGGED_IN,IS_PASS_SEQUENTIAL,is_admin,is_active,"
-                "profile_pic_url) VALUES (?,?,?,?,?,?,?,?)", (self.username, self.email_address, self.password,
-                                                              datetime.datetime.now(), self.is_pass_sequential,self.is_admin,1,self.profile_pic_url))
+                "INSERT INTO USER (USERNAME,EMAIL_ADDRESS,PASSWORD,LAST_LOGGED_IN,IS_PASS_SEQUENTIAL,is_admin,"
+                "is_active, profile_pic_url) VALUES (?,?,?,?,?,?,?,?)", (self.username, self.email_address,
+                                                                         self.password, datetime.datetime.now(),
+                                                                         self.is_pass_sequential, self.is_admin, 1,
+                                                                         self.profile_pic_url))
         except sqlite3.IntegrityError as error:
             if "email_address" in str(error).lower():
                 raise EmailAlreadyExistsError

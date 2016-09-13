@@ -32,7 +32,7 @@ SQL_TO_CREATE_POST_TABLE = '''
             CREATE TABLE IF NOT EXISTS POST (
             user_id INT NOT NULL,
             post_comment VARCHAR (255),
-            image_location_URL VARCHAR (255) NOT NULL UNIQUE,
+            image_location_url VARCHAR (255) NOT NULL UNIQUE,
             is_deleted BOOLEAN NOT NULL DEFAULT 0,
             last_edited DATETIME,
             posted_date DATETIME NOT NULL,
