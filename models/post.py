@@ -18,7 +18,7 @@ class Post:
             self.post_id = post_tuple[Post.post_tuple_index["post_id"]]
             self.user_id = post_tuple[Post.post_tuple_index["user_id"]]
             self.post_comment = post_tuple[Post.post_tuple_index["post_comment"]]
-            self.location_url = post_tuple[Post.post_tuple_index["location_url"]]
+            self.location_url = post_tuple[Post.post_tuple_index["image_location_url"]]
             self.is_deleted = post_tuple[Post.post_tuple_index["is_deleted"]]
             self.last_edited = post_tuple[Post.post_tuple_index["last_edited"]]
             self.posted_date = post_tuple[Post.post_tuple_index["posted_date"]]
@@ -37,7 +37,7 @@ class Post:
         cursor.execute("INSERT INTO POST (user_id, post_comment, image_location_url, is_deleted,"
                        "last_edited, posted_date) VALUES (?,?,?,?,?,?)",
                        (self.user_id, self.post_comment, self.location_url, self.is_deleted,
-                        self.last_edited, self.posted_date))
+                        datetime.datetime.now(), datetime.datetime.now()))
         print("Looks like post was added")
         db_connection.commit()
         db_connection.close()
