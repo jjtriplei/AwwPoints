@@ -4,12 +4,29 @@ import datetime
 
 
 class Comment:
-    def __init__(self, user_id, post_id, comment):
-        self.user_id = user_id
-        self.post_id = post_id
-        self.comment = comment
-        self.is_deleted = False
-        self.created = datetime.datetime.now()
+    comment_tuple_index = {
+        "comment_id": 0,
+        "user_id": 1,
+        "post_id": 2,
+        "comment": 3,
+        "is_deleted": 4,
+        "date_created": 5
+    }
+    def __init__(self, user_tuple):
+        if user_tuple:
+            self.comment_id = user_tuple[Comment.comment_tuple_index["comment_id"]]
+            self.user_id = user_tuple[Comment.comment_tuple_index["user_id"]]
+            self.post_id = user_tuple[Comment.comment_tuple_index["post_id"]]
+            self.comment = user_tuple[Comment.comment_tuple_index["comment"]]
+            self.is_deleted = user_tuple[Comment.comment_tuple_index["is_deleted"]]
+            self.created = user_tuple[Comment.comment_tuple_index["date_created"]]
+        else:
+            self.comment_id = None
+            self.user_id = None
+            self.post_id = None
+            self.comment = None
+            self.is_deleted = None
+            self.date_created = None
 
     def insert_into_database(self):
         db_connection = Manager.get_db_connection()
