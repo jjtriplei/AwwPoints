@@ -34,7 +34,7 @@ class User:
             self.violation_count = user_tuple[User.tuple_index["violation_count"]]
             self.is_admin = user_tuple[User.tuple_index["is_admin"]]
             self.is_active = user_tuple[User.tuple_index["is_active"]]
-            self.profile_pic_URL = user_tuple[User.tuple_index["profile_pic_URL"]]
+            self.profile_pic_url = user_tuple[User.tuple_index["profile_pic_URL"]]
         else:
             self.user_id = None
             self.username = None
@@ -45,16 +45,16 @@ class User:
             self.violation_count = None
             self.is_admin = None
             self.is_active = None
-            self.profile_pic_URL = None
+            self.url = None
 
     def insert_into_database(self):
         db_connection = Manager.get_db_connection()
         cursor = db_connection.cursor()
         try:
             cursor.execute(
-                "INSERT INTO USER (USERNAME,EMAIL_ADDRESS,PASSWORD,LAST_LOGGED_IN,IS_PASS_SEQUENTIAL) "
-                "VALUES (?,?,?,?,?)", (self.username, self.email_address, self.password,
-                                       datetime.datetime.now(), self.is_pass_sequential))
+                "INSERT INTO USER (USERNAME,EMAIL_ADDRESS,PASSWORD,LAST_LOGGED_IN,IS_PASS_SEQUENTIAL,is_admin,is_active,"
+                "profile_pic_url) VALUES (?,?,?,?,?,?,?,?)", (self.username, self.email_address, self.password,
+                                                              datetime.datetime.now(), self.is_pass_sequential,self.is_admin,1,self.profile_pic_url))
         except sqlite3.IntegrityError as error:
             if "email_address" in str(error).lower():
                 raise EmailAlreadyExistsError
