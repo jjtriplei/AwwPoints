@@ -1,0 +1,58 @@
+body {
+    background-color: darkmagenta;
+}
+
+
+#header {
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 50px;
+    color: white;
+    background-color: black;
+    opacity: .5;
+    margin: 20px -10px 0 -10px;
+    padding-left: 20px;
+}
+
+
+#body_container {
+    margin: 0px 100px 0px 100px;
+    /*background-color: -black;*/
+    display: inline-block;
+    padding: 50px;
+}
+
+
+body div div {
+    text-align: center;
+}
+
+
+body div h4 {
+    margin-bottom: 0px;
+    color: white;
+    text-align: center;
+    font-size: 75px;
+}
+
+
+body div p {
+    margin: -10px 0 0 0;
+    color: white;
+    text-align: center;
+    font-size: 40px;
+}
+
+
+#form_div {
+    text-align: center;
+    position: relative;
+    color: white;
+    font-size: 30px;
+    padding: 40px;
+}
+
+
+legend {
+    color: white;
+    font-size: 30px;
+}
