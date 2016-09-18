@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='sign_in.css') }}">
     <title>Sign Up</title>
 </head>
 <body>
@@ -20,10 +20,15 @@
             <p>so you want to sign up?</p>
         </div>
         <div id="form_div">
-            <form>
+            <form action="sign_up" method="post">
                 <fieldset>
-                    <legend> CHOOSE USERNAME</legend>
+                    <legend></legend>
+                    Username:<br>
                     <input type="text" name="Username"><br>
+                    Email Address:<br>
+                    <input type="text" name="Email Address"><br>
+                    Profile Picture: <br>
+                    <input type="text" name="Profile Picture"><br>
                     <input type="submit" value="Submit"><br>
                 </fieldset>
             </form>

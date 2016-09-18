@@ -11,6 +11,16 @@ app = Flask(__name__)
 def hello_world():
     return 'Hello World!'
 
+
+@app.route('/sign_up', methods=['POST', 'GET'])
+def create_account():
+    if request.method == 'POST':
+        print(request.form["Username"])
+        print("YOU DID IT")
+    else:
+        return render_template('sign_up.html')
+
+
 @app.route('/news')
 def news():
     my_user = "JJTRIPLEI"
