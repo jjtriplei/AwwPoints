@@ -5,6 +5,10 @@ from models import post
 from models import comment
 import testing
 
+# Terminology:
+# Controller
+# My Main File
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -15,8 +19,14 @@ def hello_world():
 @app.route('/sign_up', methods=['POST', 'GET'])
 def create_account():
     if request.method == 'POST':
-        print(request.form["Username"])
+        user.username = request.form["username"]
+        user.email = request.form["email_address"]
+        user.email = request.form["email_address"]
+        user.profile_pic = request.form["profile_pic"]
+        print("Username = " + str(user.username))
+        print("Email Address = " + str(user.email))
         print("YOU DID IT")
+        return render_template("/")
     else:
         return render_template('sign_up.html')
 

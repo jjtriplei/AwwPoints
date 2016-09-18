@@ -4,6 +4,20 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='sign_in.css') }}">
     <title>Sign Up</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>
+        window.jQuery || document.write('<script src="{{ url_for('static', filename='jquery.js') }}">\x3C/script>')
+    </script>
+
+    <script>
+        $(document).ready(function(){
+            $("#subbut").click(function(){
+                $.post("sign_up", $("form").serialize(), function(data, status) {
+                    alert(data);
+                })
+            });
+        });
+    </script>
 </head>
 <body>
 
@@ -12,7 +26,6 @@
     </div>
 
     <div id="body_container">
-
         <div>
             <h4>
                 AWWWW,
@@ -22,16 +35,17 @@
         <div id="form_div">
             <form action="sign_up" method="post">
                 <fieldset>
-                    <legend></legend>
+                    <legend>form</legend>
                     Username:<br>
-                    <input type="text" name="Username"><br>
+                    <input type="text" name="Username" id="username"><br>
                     Email Address:<br>
-                    <input type="text" name="Email Address"><br>
+                    <input type="text" name="Email Address" id="email_address"><br>
                     Profile Picture: <br>
-                    <input type="text" name="Profile Picture"><br>
-                    <input type="submit" value="Submit"><br>
+                    <input type="text" name="Profile Picture" id="profile_pic"><br>
+                    <button type="button" id="subbut" value="Submit"> BUTTON </button><br>
                 </fieldset>
             </form>
+
         </div>
     </div>
 
