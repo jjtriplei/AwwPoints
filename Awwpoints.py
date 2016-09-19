@@ -21,12 +21,11 @@ def create_account():
     if request.method == 'POST':
         user.username = request.form["username"]
         user.email = request.form["email_address"]
-        user.email = request.form["email_address"]
         user.profile_pic = request.form["profile_pic"]
         print("Username = " + str(user.username))
         print("Email Address = " + str(user.email))
         print("YOU DID IT")
-        return render_template("/")
+        return {'success': True}
     else:
         return render_template('sign_up.html')
 
