@@ -12,8 +12,10 @@
     <script>
         $(document).ready(function(){
             $("#subbut").click(function(){
-                $.post("sign_up", $("form").serialize(), function(data, status) {
-                    alert(data);
+                $.post("sign_up", $("#the_form").serialize(), function(data, status) {
+                    console.log(data['username']);
+                    console.log(data);
+                    console.log(status);
                 })
             });
         });
@@ -33,15 +35,15 @@
             <p>so you want to sign up?</p>
         </div>
         <div id="form_div">
-            <form action="sign_up" method="post">
+            <form action="sign_up" method="post" id="the_form">
                 <fieldset>
                     <legend>form</legend>
                     Username:<br>
-                    <input type="text" name="Username" id="username"><br>
+                    <input type="text" name="username" id="username"><br>
                     Email Address:<br>
-                    <input type="text" name="Email Address" id="email_address"><br>
+                    <input type="text" name="emailAddress" id="email_address"><br>
                     Profile Picture: <br>
-                    <input type="text" name="Profile Picture" id="profile_pic"><br>
+                    <input type="text" name="profilePicture" id="profile_pic"><br>
                     <button type="button" id="subbut" value="Submit"> BUTTON </button><br>
                 </fieldset>
             </form>
