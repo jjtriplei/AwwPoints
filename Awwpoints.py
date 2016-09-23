@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 from database import Manager
 from models.user import User
-from models import post
+from models.post import Post
 from models import comment
 import json
 import testing
@@ -20,16 +20,16 @@ def hello_world():
 @app.route('/sign_up', methods=['POST', 'GET'])
 def create_account():
     if request.method == 'POST':
+
         print(request.form["username"])
         print(request.form["emailAddress"])
         username = request.form["username"]
-        email = request.form["emailAddress"]
-        profile_pic = request.form["profilePicture"]
-        list = [username, email, profile_pic]
-        print("This is the username: " + str(username))
-        print("This is the email: " + str(email))
-        print("The profile pic is located at: " + str(profile_pic))
+        email_address = request.form["emailAddress"]
 
+        User((None, username, email_address, "", "", "", "", "", "", "")).insert_into_database()
+
+        print("This is the username: " + str(username))
+        print("This is the email: " + str(email_address))
 
         return json.dumps({'success': True, "username_exists": False, "email_address_exists": False,
                            "password_incorrect": False}), 200, {'ContentType': 'application/json'}

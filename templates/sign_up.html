@@ -13,7 +13,7 @@
         $(document).ready(function(){
             $("#subbut").click(function(){
                 $.post("sign_up", $("#the_form").serialize(), function(data, status) {
-                    console.log(data['username']);
+                    console.log(data[0['username']]);
                     console.log(data);
                     console.log(status);
                 })
@@ -42,8 +42,6 @@
                     <input type="text" name="username" id="username"><br>
                     Email Address:<br>
                     <input type="text" name="emailAddress" id="email_address"><br>
-                    Profile Picture: <br>
-                    <input type="text" name="profilePicture" id="profile_pic"><br>
                     <button type="button" id="subbut" value="Submit"> BUTTON </button><br>
                 </fieldset>
             </form>

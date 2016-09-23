@@ -8,7 +8,7 @@ from models.exceptions import UsernameAlreadyExistsError, EmailAlreadyExistsErro
 
 
 class User:
-    tuple_index = {
+    user_tuple_index = {
         "user_id": 0,
         "username": 1,
         "email_address": 2,
@@ -23,26 +23,26 @@ class User:
 
     def __init__(self, user_tuple):
         if user_tuple:
-            self.user_id = user_tuple[User.tuple_index["user_id"]]
-            self.username = user_tuple[User.tuple_index["username"]]
-            self.email_address = user_tuple[User.tuple_index["email_address"]]
-            self.password = user_tuple[User.tuple_index["password"]]
-            self.last_logged_in = user_tuple[User.tuple_index["last_logged_in"]]
-            self.is_pass_sequential = user_tuple[User.tuple_index["is_pass_sequential"]]
-            self.violation_count = user_tuple[User.tuple_index["violation_count"]]
-            self.is_admin = user_tuple[User.tuple_index["is_admin"]]
-            self.is_active = user_tuple[User.tuple_index["is_active"]]
-            self.profile_pic_url = user_tuple[User.tuple_index["profile_pic_URL"]]
+            self.user_id = user_tuple[User.user_tuple_index["user_id"]]
+            self.username = user_tuple[User.user_tuple_index["username"]]
+            self.email_address = user_tuple[User.user_tuple_index["email_address"]]
+            self.password = user_tuple[User.user_tuple_index["password"]]
+            self.last_logged_in = user_tuple[User.user_tuple_index["last_logged_in"]]
+            self.is_pass_sequential = user_tuple[User.user_tuple_index["is_pass_sequential"]]
+            self.violation_count = user_tuple[User.user_tuple_index["violation_count"]]
+            self.is_admin = user_tuple[User.user_tuple_index["is_admin"]]
+            self.is_active = user_tuple[User.user_tuple_index["is_active"]]
+            self.profile_pic_url = user_tuple[User.user_tuple_index["profile_pic_URL"]]
         else:
             self.user_id = None
             self.username = None
             self.email_address = None
-            self.password = None
-            self.last_logged_in = None
-            self.is_pass_sequential = None
-            self.violation_count = None
-            self.is_admin = None
-            self.is_active = None
+            self.password = 123456
+            self.last_logged_in = datetime.datetime.now()
+            self.is_pass_sequential = 1
+            self.violation_count = 0
+            self.is_admin = 0
+            self.is_active = 1
             self.url = None
 
     def insert_into_database(self):
@@ -52,8 +52,7 @@ class User:
             cursor.execute(
                 "INSERT INTO USER (USERNAME,EMAIL_ADDRESS,PASSWORD,LAST_LOGGED_IN,IS_PASS_SEQUENTIAL,is_admin,"
                 "is_active, profile_pic_url) VALUES (?,?,?,?,?,?,?,?)", (self.username, self.email_address,
-                                                                         self.password, datetime.datetime.now(),
-                                                                         self.is_pass_sequential, self.is_admin, 1,
+                                                                         123456, datetime.datetime.now(), 1, 0, 1,
                                                                          self.profile_pic_url))
         except sqlite3.IntegrityError as error:
             if "email_address" in str(error).lower():
