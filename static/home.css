@@ -1,0 +1,35 @@
+body {
+    background-color: darkmagenta;
+}
+
+
+#header {
+    position: relative;
+    font-family: Impact, Charcoal, sans-serif;
+    color: white;
+    background-color: black;
+    opacity: .5;
+    margin: 20px -10px 0 -10px;
+    height: 60px;
+    border: 2px solid orange;
+}
+
+#logo {
+    display: inline;
+    border: 2px solid red;
+    padding-left: 20px;
+    font-size: 50px;
+}
+.button {
+    font-size: 20px;
+    display: inline;
+    text-align: center;
+    color: white;
+    opacity: .5;
+    border: 2px solid blue;
+    padding: 15px;
+}
+
+.button:hover {
+    background-color: white;
+}

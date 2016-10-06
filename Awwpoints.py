@@ -14,7 +14,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return 'Hello World!'
+    return render_template('home.html')
 
 
 @app.route('/sign_up', methods=['POST', 'GET'])
@@ -26,7 +26,6 @@ def create_account():
         username = request.form["username"]
         email_address = request.form["emailAddress"]
 
-        User((None, username, email_address, "", "", "", "", "", "", "")).insert_into_database()
 
         print("This is the username: " + str(username))
         print("This is the email: " + str(email_address))
@@ -36,6 +35,11 @@ def create_account():
 
     else:
         return render_template('sign_up.html')
+
+
+@app.route('/credential_check', methods=['POST'])
+def check_credentials():
+    return 200
 
 
 @app.route('/news')

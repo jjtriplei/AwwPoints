@@ -6,9 +6,8 @@ from models.exceptions import UsernameAlreadyExistsError, EmailAlreadyExistsErro
 
 #  USER CLASS SETTINGS
 
-
 class User:
-    user_tuple_index = {
+    tuple_index = {
         "user_id": 0,
         "username": 1,
         "email_address": 2,
@@ -21,23 +20,25 @@ class User:
         "profile_pic_URL": 9
     }
 
-    def __init__(self, user_tuple):
-        if user_tuple:
-            self.user_id = user_tuple[User.user_tuple_index["user_id"]]
-            self.username = user_tuple[User.user_tuple_index["username"]]
-            self.email_address = user_tuple[User.user_tuple_index["email_address"]]
-            self.password = user_tuple[User.user_tuple_index["password"]]
-            self.last_logged_in = user_tuple[User.user_tuple_index["last_logged_in"]]
-            self.is_pass_sequential = user_tuple[User.user_tuple_index["is_pass_sequential"]]
-            self.violation_count = user_tuple[User.user_tuple_index["violation_count"]]
-            self.is_admin = user_tuple[User.user_tuple_index["is_admin"]]
-            self.is_active = user_tuple[User.user_tuple_index["is_active"]]
-            self.profile_pic_url = user_tuple[User.user_tuple_index["profile_pic_URL"]]
+    def __init__(self, db_data):
+        # An instance of the User class can be constructed using input form the database
+        # Will come over as a tuple ex: (1, 'user@user.com', 'joe')
+        if db_data:
+            self.user_id = db_data[User.tuple_index["user_id"]]
+            self.username = db_data[User.tuple_index["username"]]
+            self.email_address = db_data[User.tuple_index["email_address"]]
+            self.password = db_data[User.tuple_index["password"]]
+            self.last_logged_in = db_data[User.tuple_index["last_logged_in"]]
+            self.is_pass_sequential = db_data[User.tuple_index["is_pass_sequential"]]
+            self.violation_count = db_data[User.tuple_index["violation_count"]]
+            self.is_admin = db_data[User.tuple_index["is_admin"]]
+            self.is_active = db_data[User.tuple_index["is_active"]]
+            self.profile_pic_url = db_data[User.tuple_index["profile_pic_URL"]]
         else:
             self.user_id = None
             self.username = None
             self.email_address = None
-            self.password = 123456
+            self.password = None
             self.last_logged_in = datetime.datetime.now()
             self.is_pass_sequential = 1
             self.violation_count = 0
@@ -52,8 +53,9 @@ class User:
             cursor.execute(
                 "INSERT INTO USER (USERNAME,EMAIL_ADDRESS,PASSWORD,LAST_LOGGED_IN,IS_PASS_SEQUENTIAL,is_admin,"
                 "is_active, profile_pic_url) VALUES (?,?,?,?,?,?,?,?)", (self.username, self.email_address,
-                                                                         123456, datetime.datetime.now(), 1, 0, 1,
-                                                                         self.profile_pic_url))
+                                                                         self.password, self.last_logged_in,
+                                                                         self.is_pass_sequential, self.violation_count,
+                                                                         self.is_admin, self.profile_pic_url))
         except sqlite3.IntegrityError as error:
             if "email_address" in str(error).lower():
                 raise EmailAlreadyExistsError

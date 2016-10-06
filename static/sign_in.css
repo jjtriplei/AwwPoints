@@ -56,3 +56,35 @@ legend {
     color: white;
     font-size: 18px;
 }
+
+
+#password_div {
+    text-align: center;
+    position: relative;
+    color: white;
+    font-size: 30px;
+    padding: 40px;
+}
+
+
+.hidden {
+    display: none;
+}
+
+
+.password_Row_1 {
+    display: inline-block;
+    background-color: #e500e5;
+}
+
+
+.password_Row_2 {
+    display: inline-block;
+    background-color: #b200b2;
+}
+
+
+.password_Row_3 {
+    display: inline-block;
+    background-color: #7f007f;
+}
