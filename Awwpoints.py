@@ -21,14 +21,11 @@ def hello_world():
 def create_account():
     if request.method == 'POST':
 
-        print(request.form["username"])
-        print(request.form["emailAddress"])
         username = request.form["username"]
         email_address = request.form["emailAddress"]
 
-
-        print("This is the username: " + str(username))
-        print("This is the email: " + str(email_address))
+        print("Username: " + str(username))
+        print("Email: " + str(email_address))
 
         return json.dumps({'success': True, "username_exists": False, "email_address_exists": False,
                            "password_incorrect": False}), 200, {'ContentType': 'application/json'}
