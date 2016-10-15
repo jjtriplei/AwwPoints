@@ -24,8 +24,10 @@ def create_account():
         username = request.form["username"]
         email_address = request.form["emailAddress"]
 
-        print("Username: " + str(username))
-        print("Email: " + str(email_address))
+        if User.get_user_by_username(username):
+            print("True")
+        else:
+            print("False")
 
         return json.dumps({'success': True, "username_exists": False, "email_address_exists": False,
                            "password_incorrect": False}), 200, {'ContentType': 'application/json'}

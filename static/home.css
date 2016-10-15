@@ -2,6 +2,9 @@ body {
     background-color: darkmagenta;
 }
 
+a:link {
+    text-decoration: none!important;
+}
 
 #header {
     font-family: Impact, Charcoal, sans-serif;

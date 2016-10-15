@@ -76,6 +76,15 @@ class User:
         return query_results
 
     @staticmethod
+    def get_user_by_username(username):
+        db_connection = Manager.get_db_connection()
+        cursor = db_connection.cursor()
+        cursor.execute("SELECT rowid, * FROM USER WHERE username = (?)", (username,))
+        query_results = cursor.fetchall()
+        db_connection.close()
+        return query_results
+
+    @staticmethod
     def get_user_by_email_address(email_address):
         db_connection = Manager.get_db_connection()
         cursor = db_connection.cursor()
