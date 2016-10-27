@@ -24,13 +24,19 @@ def create_account():
         username = request.form["username"]
         email_address = request.form["emailAddress"]
 
+        success_dictionary = {
+            'success': True,
+            "username_exists": False,
+            "email_address_exists": False,
+            "password_incorrect": False
+        }
+
         if User.get_user_by_username(username):
-            print("True")
+            success_dictionary["username_exists"] = True
         else:
             print("False")
 
-        return json.dumps({'success': True, "username_exists": False, "email_address_exists": False,
-                           "password_incorrect": False}), 200, {'ContentType': 'application/json'}
+        return json.dumps(success_dictionary, 200, {'ContentType': 'application/json'})
 
     else:
         return render_template('sign_up.html')
