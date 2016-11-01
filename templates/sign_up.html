@@ -17,16 +17,6 @@ NEW JQUERY:
 #}
     <script>
 
-        function submitLogin() {
-        $.ajax({
-            url:"script.php",
-            type:'POST',
-            dataType:"json",
-            data: $("#the_form").serialize()
-        }).done(function(data){
-           console.log("Ran submitLogin function")
-        });
-}
         $(document).ready(function(){
             $("#subbut").click(function(){
                 $.post("sign_up", $("#the_form").serialize(), function(data, status) {
@@ -38,11 +28,22 @@ NEW JQUERY:
             });
         });
 
-        $('#username').keypress(function(e) {
-        if (e.which == '13') {
-            submitLogin();
-        }
-});
+        $(document).ready(function(){
+            $('#username').keypress(function(e) {
+                if (e.which == '13') {
+                    $.post("sign_up", $("#the_form").serialize(), function(data, status) {
+                        console.log(data[0['username']]);
+                        console.log(data);
+                        console.log(status);
+                        alert("HAHAHA! ENTER SON!")
+                        alert("POST Status:" + status)
+                    });
+                };
+            });
+        });
+
+
+
 
     </script>
 
