@@ -33,8 +33,9 @@ def create_account():
 
         if User.get_user_by_username(username):
             success_dictionary["username_exists"] = True
+            print("Username exists")
         else:
-            print("False")
+            print("Username does not exist")
 
         return json.dumps(success_dictionary, 200, {'ContentType': 'application/json'})
 
