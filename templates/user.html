@@ -1,10 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='test_delete_me.css') }}">
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>
 <body>
     {{ user_profile }}
+
+    <div id="header">
+            <div id="logo">AP</div>
+    </div>
+
+    <h1> {{ user_profile[1] }}</h1>
+
+    <h2> </h2>
+
 </body>
 </html>

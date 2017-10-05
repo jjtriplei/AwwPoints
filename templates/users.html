@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='test_delete_me.css') }}">
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>
 <body>
 {#    {{ all_users }}#}
     <ul>
     {% for user in all_users %}
-      <li>
+      <li style="color: white">
 {#      <a href="/user/{{ user[0] }}">#}
 {#          <b> {{ user[1] }} </b> {{ ": " + user[2] }}#}
 {#      </a>#}

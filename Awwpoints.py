@@ -12,6 +12,7 @@ import testing
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def hello_world():
     return render_template('home.html')
@@ -59,15 +60,16 @@ def news():
                            user=my_user,
                            some_numbers=some_array)
 
+
 @app.route('/users')
 def users():
     all_users = User.get_all_users()
     return render_template('users.html', all_users=all_users)
 
 
-@app.route('/user/<int:user_id>')
-def user(user_id):
-    retrieved_user = User.get_user_by_user_id(user_id)
+@app.route('/user/<string:username>')
+def user(username):
+    retrieved_user = User.get_user_by_username(username)
     return render_template('user.html', user_profile=retrieved_user)
 
 
