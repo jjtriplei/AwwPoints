@@ -70,6 +70,7 @@ def users():
 @app.route('/user/<string:username>')
 def user(username):
     retrieved_user = User.get_user_by_username(username)
+    # users_comments = comment.Comment.get_all_comments_by_user(retrieved_user[0])
     return render_template('user.html', user_profile=retrieved_user)
 
 
