@@ -43,7 +43,7 @@ body div p {
 }
 
 
-#form_div {
+#signup_container {
     text-align: center;
     position: relative;
     color: white;
@@ -58,7 +58,7 @@ legend {
 }
 
 
-#password_div {
+#password_container {
     text-align: center;
     position: relative;
     color: white;

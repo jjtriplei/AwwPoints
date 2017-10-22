@@ -4,14 +4,13 @@ from models.user import User
 from models.post import Post
 from models import comment
 import json
-import testing
+# import testing
 
 # Terminology:
 # Controller
 # My Main File
 
 app = Flask(__name__)
-
 
 @app.route('/')
 def hello_world():
@@ -44,9 +43,9 @@ def create_account():
         return render_template('sign_up.html')
 
 
-@app.route('/credential_check', methods=['POST'])
-def check_credentials():
-    return 200
+# @app.route('/credential_check', methods=['POST'])
+# def check_credentials():
+#     return 200
 
 
 @app.route('/news')
